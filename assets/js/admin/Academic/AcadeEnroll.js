@@ -41,6 +41,7 @@ tbErollSubject = $('#tbErollSubject').DataTable({
 });
 
 
+
 $('#teacherregis').select2({
     width: 300
 });
