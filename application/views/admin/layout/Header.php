@@ -9,16 +9,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="ระบบงานวิชาการสำหรับนักเรียน">
+    <meta name="description" content="ระบบงานสารสนเทศโรงเรียนสวนกุหลาบวิทยาลัย (จิรประวัติ) นครสวรรค์">
     <meta name="author" content="Dekpiano">
     <link rel="shortcut icon" href="favicon.ico">
 
-    <!-- FontAwesome JS-->
-    <script defer src="<?=base_url();?>assets/plugins/fontawesome/js/all.min.js"></script>
+    <!-- Favicons -->
+    <link href="<?=base_url()?>assets/img/favicon.png" rel="icon">
+    <link href="<?=base_url()?>assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- App CSS -->
-    <link id="theme-style" rel="stylesheet" href="<?=base_url();?>assets/css/portal.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400&display=swap" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="<?=base_url()?>assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="<?=base_url()?>assets/css/style.css?v=1" rel="stylesheet">
+
+
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
         rel="stylesheet">
 
@@ -38,6 +53,16 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/css/datepicker.css?v=1">
 
     <style>
+    .placeholder {
+        background-color: transparent;
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    .ss-main {
+        color: #000;
+    }
+
     .btn-group-xs>.btn,
     .btn-xs {
         line-height: 1.5;
@@ -89,94 +114,179 @@
     อาจใช้เวลาในการโหลดข้อมูล 1 - 2 นาที กรุณรอ...
 </div>
 
-<body class="app" style="font-family: 'Sarabun', sans-serif;">
-    <header class="app-header fixed-top">
-        <div class="app-header-inner">
-            <div class="container-fluid py-2">
-                <div class="app-header-content">
-                    <div class="row justify-content-between align-items-center">
-
-                        <div class="col-auto">
-                            <a id="sidepanel-toggler" class="sidepanel-toggler d-inline-block d-xl-none" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
-                                    role="img">
-                                    <title>Menu</title>
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
-                                        stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path>
-                                </svg>
-                            </a>
-                        </div>
-                        <div class="app-search-box col">
-                            ระบบงานวิชาการ สำหรับ Admin และเจ้าหน้าที่
-                        </div>
+<body style="font-family: 'Sarabun', sans-serif;">
 
 
-                        <div class="app-utilities col-auto">
-                            <div class="app-utility-item app-user-dropdown dropdown">
-                                <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                                    role="button" aria-expanded="false">
-                                    <?=$this->session->userdata('fullname');?> <img
-                                        src="<?=base_url();?>uploads/usericon.png" alt="user profile"></a>
-                                <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                                    <li><a class="dropdown-item" href="account.html">Account</a></li>
-                                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="<?=base_url('LogoutTeacher');?>">Log Out</a></li>
-                                </ul>
-                            </div>
-                            <!--//app-user-dropdown-->
-                        </div>
-                        <!--//app-utilities-->
-                    </div>
-                    <!--//row-->
-                </div>
-                <!--//app-header-content-->
-            </div>
-            <!--//container-fluid-->
-        </div>
-        <!--//app-header-inner-->
-        <div id="app-sidepanel" class="app-sidepanel">
-            <div id="sidepanel-drop" class="sidepanel-drop"></div>
-            <div class="sidepanel-inner d-flex flex-column">
-                <a href="#" id="sidepanel-close" class="sidepanel-close d-xl-none">&times;</a>
-                <div class="app-branding">
-                    <a class="app-logo" href="<?=base_url('Admin/Home');?>"><img class="logo-icon me-2"
-                            src="<?=base_url();?>assets/images/app-logo.svg" alt="logo"><span class="logo-text">ACDM
-                            SKJ</span></a>
-                </div>
-                <!--//app-branding-->
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
 
-                <nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">
-                    <ul class="app-menu list-unstyled accordion" id="menu-accordion">
-                        <li class="nav-item">
-                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                            <a class="nav-link  <?=$this->uri->segment('2')=="Home" ? "active" :""?>"
-                                href="<?=base_url('Admin/Home');?>">
-                                <span class="nav-icon">
-                                    <i class="bi bi-house-fill" style="font-size: 1.2rem;"></i>
-                                </span>
-                                <span class="nav-link-text">หน้าแรก</span>
-                            </a>
-                            <!--//nav-link-->
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="<?=base_url('Admin/Home');?>" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">ระบบงานสารสนเทศ</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="https://skj.ac.th/uploads/personnel/<?=$this->session->userdata('img');?>"
+                            alt="Profile" class="rounded-circle">
+                        <span
+                            class="d-none d-md-block dropdown-toggle ps-2"><?=$this->session->userdata('fullname');?></span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6><?=$this->session->userdata('fullname');?></h6>
+                            <span><?=$this->session->userdata('CheckrloesAcademic');?></span>
                         </li>
-                        <hr>
-                        <?php if($this->session->userdata('CheckrloesAcademic') === 'เจ้าหน้าที่วิชาการ'): ?>
-                        <?php $this->load->view('admin/layout/Header_Academic.php'); ?>
-                        <?php endif; ?>
-                        <hr>
-                        <?php if($this->session->userdata('CheckrloesGeneral') === 'เจ้าหน้าที่ทั่วไป'): ?>
-                        <?php $this->load->view('admin/layout/Header_General.php'); ?>
-                        <?php endif; ?>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-                    </ul>
-                    <!--//app-menu-->
-                </nav>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>โปรไฟล์</span>
+                            </a>
+                        </li>
 
-            </div>
-            <!--//sidepanel-inner-->
-        </div>
-        <!--//app-sidepanel-->
-    </header>
-    <!--//app-header-->
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="<?=base_url('LogoutTeacher');?>">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>ออกจากระบบ</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link <?=$this->uri->segment('2')=="Home" ? "" :"collapsed"?>"
+                    href="<?=base_url('Admin/Home');?>">
+                    <i class="bi bi-grid"></i>
+                    <span>หน้าแรก</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">งานวิชาการ</li>
+
+            <li class="nav-item">
+                <a class="nav-link  <?=$this->uri->segment('3')=="Registration" ? "" :"collapsed"?>"
+                    data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>งานทะเบียน</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="icons-nav"
+                    class="nav-content collapse <?=$this->uri->segment('3')=="Registration" ? "show" :""?>"
+                    data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="Enroll" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/Enroll');?>"><i class="bi bi-circle"></i>
+                            ลงทะเบียนเรียน</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="RegisterSubject" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/RegisterSubject');?>"><i
+                                class="bi bi-circle"></i> จัดการวิชาเรียน</a>
+                    </li>
+                    <li>
+                        <a <?=$this->uri->segment('4')=="ExamSchedule" ? "active" :""?>
+                            href="<?=base_url('Admin/Acade/Registration/ExamSchedule');?>"><i class="bi bi-circle"></i>
+                            จัดการตารางสอบ</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="ClassRoom" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/ClassRoom');?>"><i class="bi bi-circle"></i>
+                            จัดการห้องเรียน /
+                            ที่ปรึกษา</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="Students" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/Students');?>"><i class="bi bi-circle"></i>
+                            จัดการนักเรียน</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="ExamSchedule" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/ExamSchedule');?>"><i class="bi bi-circle"></i>
+                            จัดการตารางสอบ</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="ClassSchedule" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/ClassSchedule');?>"><i class="bi bi-circle"></i>
+                            จัดการตารางเรียน</a>
+                    </li>
+                    <li>
+                        <a class=" <?=$this->uri->segment('4')=="ExtraSubject" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/RoomOnline');?>"><i class="bi bi-circle"></i>
+                            จัดการห้องเรียนออนไลน์</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="ExtraSubject" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/AdminRoles');?>"><i class="bi bi-circle"></i>
+                            จัดการบทบาทในวิชาการ</a>
+                    </li>
+                    <li>
+                        <a class="<?=$this->uri->segment('4')=="AcademicResult" ? "active" :""?>"
+                            href="<?=base_url('Admin/Acade/Registration/AcademicResult');?>"><i
+                                class="bi bi-circle"></i> จัดการผลการเรียน</a>
+                    </li>
+
+                </ul>
+            </li><!-- End Icons Nav -->
+
+            <li class="nav-heading">งานบริหารทั่วไป</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="icons-bootstrap.html">
+                            <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-remix.html">
+                            <i class="bi bi-circle"></i><span>Remix Icons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-boxicons.html">
+                            <i class="bi bi-circle"></i><span>Boxicons</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Icons Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
